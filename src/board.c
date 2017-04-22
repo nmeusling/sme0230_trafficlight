@@ -1,6 +1,7 @@
-//
-// Created by nmeusling on 4/21/17.
-//
+/* Natalie Menato
+   Numero USP: 10295051
+   22/04/2017
+   Submissao para Trabalho Parte 1  */
 
 #include <stdio.h>
 #include "main.h"
@@ -30,6 +31,7 @@ void print_board(t_board board) {
     }
 }
 
+
 /* Clears all positions of the board */
 int clear_board(t_board *board) {
     int i, j;
@@ -44,8 +46,13 @@ int clear_board(t_board *board) {
 //check if it is possible to play at desired position
 int valid_board_move(int *move, t_board board) {
     //is valid if the spot move[0], move[1] has a value < 2
-    if (board.elements[move[0]][move[1]] < 2)
+    if (board.elements[move[0]][move[1]] < 3)
         return TRUE;
     return FALSE;
+}
+
+void update_board(int *move, t_board *board) {
+    board->elements[move[0]][move[1]]++;
+
 }
 

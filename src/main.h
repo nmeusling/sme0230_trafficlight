@@ -1,6 +1,7 @@
-//
-// Created by nmeusling on 4/21/17.
-//
+/* Natalie Menato
+   Numero USP: 10295051
+   22/04/2017
+   Submissao para Trabalho Parte 1  */
 
 #ifndef MAIN_H
 #define MAIN_H
@@ -8,15 +9,10 @@
 #define TRUE 1
 #define FALSE 0
 
+#include "input.h"
 #include "board.h"
 
-void get_move(int *, t_board);
-
-void flush_std_in(void);
-
-int validate_input(int *);
-
-void index_move(int *);
+void print_menu();
 
 
 #endif
