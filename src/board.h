@@ -1,6 +1,7 @@
-//
-// Created by nmeusling on 4/21/17.
-//
+/* Natalie Menato
+   Numero USP: 10295051
+   22/04/2017
+   Submissao para Trabalho Parte 1  */
 
 #ifndef BOARD_H
 #define BOARD_H
@@ -20,5 +21,7 @@ void print_board(t_board);
 int clear_board(t_board *);
 
 int valid_board_move(int *, t_board);
+
+void update_board(int *, t_board *);
 
 #endif
