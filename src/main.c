@@ -26,9 +26,7 @@ int main() {
     //after each play, ask user if they want to place another piece
     while (keep_playing == TRUE) {
         //get_move returns -1 if the input move is invalid, end execution
-        if (get_move(move, main_board) == -1) {
-            return 0;
-        }
+        get_move(move, main_board);
 
         //input is valid, board is updated to include move
         update_board(move, &main_board);

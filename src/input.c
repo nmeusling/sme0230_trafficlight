@@ -48,62 +48,51 @@ void flush_std_in(void) {
 }
 
 //Get player's desired move, validates it, and stores it in move
-//Returns -1 if move is invalid, 0 if move is valid
-int get_move(int *move, t_board board) {
+//Get player's desired move
+void get_move(int *move, t_board board) {
     //store int related to char based on ASCII
     int row, column;
+    int is_valid = FALSE;
     int is_valid_input;
+    int is_valid_move;
 
     printf("Please enter your move."
                    " Enter it as row and then column with no space."
                    " For example (3B): ");
-
-    //read the first two input chars
     row = getchar();
     column = getchar();
-
-    //Discard any chars input after the first two
     flush_std_in();
 
-    //store input values in move
     move[0] = row;
     move[1] = column;
 
-    //validate if valid format and valid position
     is_valid_input = validate_input(move);
-    if (is_valid_input == TRUE) {
-        if (valid_board_move(move, board) == TRUE) {
-            return 0;
-        } else {
-            printf("Not a valid position! \n");
-            return -1;
-        }
-    }
-    //loop to get input from user with valid format
-    while (is_valid_input == FALSE) {
-        printf("Not a valid input format. Try again: ");
+    if (is_valid_input == TRUE)
+        if (valid_board_move(move, board) == TRUE)
+            is_valid = TRUE;
 
+    while (is_valid == FALSE) {
+        if (is_valid_input == FALSE) {
+            printf("Not a valid input format. Try again: ");
+        } else {
+            is_valid_move = valid_board_move(move, board);
+            if (is_valid_move == FALSE)
+                printf("That is not a legal move! Try again: ");
+        }
         //read the first two input chars
         row = getchar();
         column = getchar();
-
         //Discard any chars input after the first two
         flush_std_in();
 
         move[0] = row;
         move[1] = column;
-
-        //validate format and if valid move
         is_valid_input = validate_input(move);
-        if (is_valid_input == TRUE) {
-            if (valid_board_move(move, board) == TRUE) {
-                return 0;
-            } else {
-                printf("Not a valid position! \n");
-                return -1;
-            }
-        }
+        if (is_valid_input == TRUE)
+            if (valid_board_move(move, board) == TRUE)
+                is_valid = TRUE;
+
+
     }
-    return 0;
 }
 
