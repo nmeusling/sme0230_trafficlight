@@ -49,17 +49,22 @@ void flush_std_in(void) {
 
 //Get player's desired move, validates it, and stores it in move
 //Get player's desired move
-void get_move(int *move, t_board board) {
+//returns 0 if all is successful
+//returns -1 if user wants to quit
+int get_move(int *move, t_board board, int player) {
     //store int related to char based on ASCII
     int row, column;
     int is_valid = FALSE;
     int is_valid_input;
     int is_valid_move;
 
-    printf("Please enter your move."
-                   " Enter it as row and then column with no space."
-                   " For example (3B): ");
+    printf("Player %d: Please enter your move."
+                   " \nEnter it as row and then column with no space."
+                   " For example (3B): ", player);
     row = getchar();
+    if (row == 81 || row == 113) {
+        return -1;
+    }
     column = getchar();
     flush_std_in();
 
@@ -94,5 +99,8 @@ void get_move(int *move, t_board board) {
 
 
     }
+    return 0;
+
+
 }
 

@@ -20,6 +20,6 @@ void index_move(int *);
 
 void flush_std_in(void);
 
-void get_move(int *, t_board);
+int get_move(int *, t_board, int player);
 
 #endif

@@ -12,7 +12,7 @@
 #include "input.h"
 #include "board.h"
 
-void print_menu();
+int print_menu();
 
 
 #endif

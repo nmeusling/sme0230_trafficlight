@@ -24,4 +24,6 @@ int valid_board_move(int *, t_board);
 
 void update_board(int *, t_board *);
 
+int remaining_moves(t_board);
+
 #endif

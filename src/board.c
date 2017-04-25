@@ -9,7 +9,7 @@
 /* Prints the board that was passed to the function to the screen. */
 void print_board(t_board board) {
     int i, j;
-    printf("    A   B   C   D\n");
+    printf("\n\nCurrent board\n    A   B   C   D\n");
     printf("   ---------------\n");
     for (i = 0; i < ROW_SIZE; i++) {
         for (j = 0; j < COLUMN_SIZE; j++) {
@@ -56,3 +56,14 @@ void update_board(int *move, t_board *board) {
 
 }
 
+//return TRUE if no more possible moves, FALSE if there are more possible moves
+int remaining_moves(t_board board) {
+    int i, j;
+    for (i = 0; i < ROW_SIZE; i++) {
+        for (j = 0; j < COLUMN_SIZE; j++) {
+            if (board.elements[i][j] < 3)
+                return TRUE;
+        }
+    }
+    return FALSE;
+}
