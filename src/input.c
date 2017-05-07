@@ -1,7 +1,7 @@
 /* Natalie Menato
    Numero USP: 10295051
    07/05/2017
-   Submissao para Trabalho Parte 3  */
+   Submissao para Trabalho Parte 2  */
 
 #include "input.h"
 
