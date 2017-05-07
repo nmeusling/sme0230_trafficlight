@@ -21,7 +21,7 @@ int is_column_valid(int col) {
 }
 
 //Validate if input row and column numbers are both valid
-int validate_input(int *move) {
+int validate_input(int move[2]) {
     index_move(move);
     if ((is_row_valid(move[0]) == TRUE) && (is_column_valid(move[1]) == TRUE))
         return TRUE;
@@ -29,7 +29,7 @@ int validate_input(int *move) {
 }
 
 //change move from ascii code to index of desired row and column
-void index_move(int *move) {
+void index_move(int move[2]) {
     // Using ASCII code, '1' - 49, '2' - 50, '3' - 51
     // '1' will become 0, '2' will become 1, '3' will become 2
     move[0] -= 49;
@@ -51,7 +51,7 @@ void flush_std_in(void) {
 //Get player's desired move
 //returns 0 if all is successful
 //returns -1 if user wants to quit
-int get_move(int *move, t_board board, int player) {
+int get_move(int move[2], t_board board, int player) {
     //store int related to char based on ASCII
     int row, column;
     int is_valid = FALSE;

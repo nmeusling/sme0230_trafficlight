@@ -44,15 +44,15 @@ int clear_board(t_board *board) {
 }
 
 //check if it is possible to play at desired position
-int valid_board_move(int *move, t_board board) {
-    //is valid if the spot move[0], move[1] has a value < 2
+int valid_board_move(int move[2], t_board board) {
+    //is valid if the spot move[0], move[1] has a value < 3
     if (board.elements[move[0]][move[1]] < 3)
         return TRUE;
     return FALSE;
 }
 
 //updates the board with the latest move
-void update_board(int *move, t_board *board) {
+void update_board(int move[2], t_board *board) {
     board->elements[move[0]][move[1]]++;
 
 }

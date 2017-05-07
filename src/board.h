@@ -24,10 +24,10 @@ void print_board(t_board);
 int clear_board(t_board *);
 
 //check if it is possible to play at desired position
-int valid_board_move(int *, t_board);
+int valid_board_move(int [], t_board);
 
 //updates the board with the latest move
-void update_board(int *, t_board *);
+void update_board(int [], t_board *);
 
 //return TRUE if more possible moves, FALSE if there are no more possible moves
 int remaining_moves(t_board);
