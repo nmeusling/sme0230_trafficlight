@@ -32,4 +32,5 @@ void update_board(int [], t_board *);
 //return TRUE if more possible moves, FALSE if there are no more possible moves
 int remaining_moves(t_board);
 
+
 #endif

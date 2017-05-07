@@ -84,6 +84,9 @@ int get_move(int move[2], t_board board, int player) {
         }
         //read the first two input chars
         row = getchar();
+        if (row == 81 || row == 113) {
+            return -1;
+        }
         column = getchar();
         //Discard any chars input after the first two
         flush_std_in();
