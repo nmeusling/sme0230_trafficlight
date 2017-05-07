@@ -34,5 +34,6 @@ updated game board is displayed.
 In part 2, turns are alternated between two players. If an invalid move is input, 
 the player will have a chance to enter a new move until a valid move has been 
 entered. Player can quit game by entering 'Q' instead of entering a move. 
-Execution will end automatically when there are no more valid moves left (i.e 
-when the board has been filled with #).
+Execution will end automatically when there are no more valid moves left (i.e  
+when the board has been filled with '#').
+
