@@ -1,7 +1,7 @@
 /* Natalie Menato
    Numero USP: 10295051
-   22/04/2017
-   Submissao para Trabalho Parte 1  */
+   07/05/2017
+   Submissao para Trabalho Parte 2  */
 
 #include "input.h"
 
@@ -58,9 +58,7 @@ int get_move(int *move, t_board board, int player) {
     int is_valid_input;
     int is_valid_move;
 
-    printf("Player %d: Please enter your move."
-                   " \nEnter it as row and then column with no space."
-                   " For example (3B): ", player);
+    printf("Player %d - Please enter your move: ", player);
     row = getchar();
     if (row == 81 || row == 113) {
         return -1;
@@ -96,8 +94,6 @@ int get_move(int *move, t_board board, int player) {
         if (is_valid_input == TRUE)
             if (valid_board_move(move, board) == TRUE)
                 is_valid = TRUE;
-
-
     }
     return 0;
 

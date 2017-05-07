@@ -1,12 +1,12 @@
 /* Natalie Menato
    Numero USP: 10295051
-   22/04/2017
-   Submissao para Trabalho Parte 1  */
+   07/05/2017
+   Submissao para Trabalho Parte 2  */
 
 #include "main.h"
 
 int main() {
-    //allow player to keep placing pieces while true
+    //keep track of which player's turn it is
     int current_player = 1;
 
     //stores player's desired move
@@ -35,19 +35,11 @@ int main() {
         //input is valid, board is updated to include move
         update_board(move, &main_board);
         print_board(main_board);
-        /*printf("Do you want to place another piece? Y/N: ");
 
-        //get first input character, flush all others
-        input = getchar();
-        flush_std_in();*/
         if (current_player == 1)
             current_player = 2;
         else
             current_player = 1;
-        //if 'y' or 'Y', user will place another piece, otherwise, end execution
-        /*if (input == 89 || input == 121) {
-            keep_playing = FALSE;
-        }*/
 
     }
     printf("\n\nGame Over: No more possible moves!\n\n");
@@ -67,11 +59,14 @@ int print_menu() {
              "\nEach turn, you can place '-' in an empty space, transform a"\
              "\n'-' into a '+', or transform a '+' into a '#'."\
              "\nIf a space contains a '#', no further moves are possible."\
+             " \n\nEnter your moves based on desired row and then column."\
+             "\nFor example: '3B'. "\
              "\n\nEnter 'Q' to quit at any point.\n\n"\
              "Would you like to start a game? Y/N: ");
 
     start_game = getchar();
     flush_std_in();
+    //check input using ASCII, if input is not 'Y' or 'y'
     if (start_game != 89 && start_game != 121) {
         return FALSE;
     }

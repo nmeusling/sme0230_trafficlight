@@ -1,12 +1,12 @@
 /* Natalie Menato
    Numero USP: 10295051
-   22/04/2017
-   Submissao para Trabalho Parte 1  */
+   07/05/2017
+   Submissao para Trabalho Parte 2  */
 
 #include <stdio.h>
 #include "main.h"
 
-/* Prints the board that was passed to the function to the screen. */
+// Prints the board that was passed to the function to the screen.
 void print_board(t_board board) {
     int i, j;
     printf("\n\nCurrent board\n    A   B   C   D\n");
@@ -32,7 +32,7 @@ void print_board(t_board board) {
 }
 
 
-/* Clears all positions of the board */
+// Clears all positions of the board
 int clear_board(t_board *board) {
     int i, j;
 
@@ -51,12 +51,13 @@ int valid_board_move(int *move, t_board board) {
     return FALSE;
 }
 
+//updates the board with the latest move
 void update_board(int *move, t_board *board) {
     board->elements[move[0]][move[1]]++;
 
 }
 
-//return TRUE if no more possible moves, FALSE if there are more possible moves
+//return TRUE if more possible moves, FALSE if there are no more possible moves
 int remaining_moves(t_board board) {
     int i, j;
     for (i = 0; i < ROW_SIZE; i++) {
