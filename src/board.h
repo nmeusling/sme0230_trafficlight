@@ -1,7 +1,7 @@
 /* Natalie Menato
    Numero USP: 10295051
    07/05/2017
-   Submissao para Trabalho Parte 2  */
+   Submissao para Trabalho Parte 3  */
 
 #ifndef BOARD_H
 #define BOARD_H
@@ -31,5 +31,6 @@ void update_board(int [], t_board *);
 
 //return TRUE if more possible moves, FALSE if there are no more possible moves
 int remaining_moves(t_board);
+
 
 #endif
