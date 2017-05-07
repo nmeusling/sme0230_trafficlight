@@ -28,3 +28,11 @@ The input is then validated to see if it is a valid move. A move is valid if it
 is to a position that does not already contain the highest possible piece (#).
 If the move is invalid, execution is stopped. If the move is valid, the
 updated game board is displayed.
+
+### Part 2
+
+In part 2, turns are alternated between two players. If an invalid move is input, 
+the player will have a chance to enter a new move until a valid move has been 
+entered. Player can quit game by entering 'Q' instead of entering a move. 
+Execution will end automatically when there are no more valid moves left (i.e 
+when the board has been filled with #).
