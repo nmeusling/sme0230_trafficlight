@@ -1,7 +1,7 @@
 /* Natalie Menato
    Numero USP: 10295051
-   22/04/2017
-   Submissao para Trabalho Parte 1  */
+   07/05/2017
+   Submissao para Trabalho Parte 2  */
 
 #ifndef MAIN_H
 #define MAIN_H
@@ -12,7 +12,9 @@
 #include "input.h"
 #include "board.h"
 
-void print_menu();
+//function to print the game opening with basic instructions for play.
+//returns FALSE if the user does not want to start a game, TRUE otherwise
+int print_menu();
 
 
 #endif
