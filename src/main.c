@@ -35,7 +35,11 @@ int main() {
         //input is valid, board is updated to include move
         update_board(move, &main_board);
         print_board(main_board);
-
+        if (won_game(main_board, move) == TRUE) {
+            printf("\nCongratulations Player %d!! You won the game!\n",
+                   current_player);
+            return 0;
+        }
         if (current_player == 1)
             current_player = 2;
         else

@@ -32,5 +32,21 @@ void update_board(int [], t_board *);
 //return TRUE if more possible moves, FALSE if there are no more possible moves
 int remaining_moves(t_board);
 
+//return TRUE if last move caused player to win game, FALSE otherwise
+int won_game(t_board, int []);
+
+//check if a user has won in a column, return TRUE if yes, otherwise FALSE
+int check_column(t_board, int);
+
+//check if a user has won in a row, return TRUE if yes, otherwise FALSE
+int check_row(t_board, int);
+
+//check if user won in diagonal, return TRUE if yes, otherwise FALSE
+int check_diagonal(t_board, int []);
+
+//verify if the decreasing diaganal has three in a row
+int dec_diag(t_board, int []);
+
+int dec_diag(t_board, int [2]);
 
 #endif

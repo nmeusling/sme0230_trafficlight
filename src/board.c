@@ -68,3 +68,90 @@ int remaining_moves(t_board board) {
     }
     return FALSE;
 }
+
+//return TRUE if last move caused player to win game, FALSE otherwise
+int won_game(t_board board, int move[2]) {
+    if (check_column(board, move[1]) == TRUE) {
+        return TRUE;
+    } else if (check_row(board, move[0]) == TRUE) {
+        return TRUE;
+    } else if (check_diagonal(board, move) == TRUE) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+
+}
+
+//check if a user has won in a column, return TRUE if yes, otherwise FALSE
+int check_column(t_board board, int col) {
+    int i;
+    int piece = board.elements[0][col];
+    for (i = 1; i < ROW_SIZE; i++) {
+        if (board.elements[i][col] != piece) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+//check if a user has won in a row, return TRUE if yes, otherwise FALSE
+int check_row(t_board board, int row) {
+
+    //in order to win by a row, the two middle columns must be equal
+    if (board.elements[row][1] != board.elements[row][2]) {
+        return FALSE;
+    }
+    //if either of the two middle elements are blank, it is not possible to win
+    if (board.elements[row][1] == 0 || board.elements[row][2] == 0)
+        return FALSE;
+    //two middle elements are equal, and not blank, test if either first or last element is also equal
+    if (board.elements[row][0] == board.elements[row][2]
+        || board.elements[row][3] == board.elements[row][2]) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+int dec_diag(t_board board, int move[2]) {
+    int i, ind_row, ind_column, value;
+    ind_row = 0;
+    if (move[1] - move[0] >= 0) {
+        ind_column = move[1] - move[0];
+        value = board.elements[ind_row][ind_column];
+        for (i = 1; i < 3; i++) {
+            if (board.elements[ind_row + i][ind_column + i] != value)
+                return FALSE;
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+
+int inc_diag(t_board board, int move[2]) {
+    int i, ind_row, ind_column, value;
+    ind_row = 0;
+    if (move[1] - move[0] >= 2 && move[1] - move[0] <= 3) {
+        ind_column = move[1] - move[0];
+        value = board.elements[ind_row][ind_column];
+        for (i = 1; i < 3; i++) {
+            if (board.elements[ind_row + i][ind_column - i] != value)
+                return FALSE;
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+
+
+//check if user won in diagonal, return TRUE if yes, otherwise FALSE
+int check_diagonal(t_board board, int move[2]) {
+    if (dec_diag(board, move) == TRUE)
+        return TRUE;
+    else if (inc_diag(board, move) == TRUE)
+        return TRUE;
+    return FALSE;
+
+
+}
