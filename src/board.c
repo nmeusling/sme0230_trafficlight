@@ -1,7 +1,7 @@
 /* Natalie Menato
    Numero USP: 10295051
-   07/05/2017
-   Submissao para Trabalho Parte 2  */
+   27/05/2017
+   Submissao para Trabalho Parte 3  */
 
 #include <stdio.h>
 #include "main.h"
@@ -44,16 +44,16 @@ int clear_board(t_board *board) {
 }
 
 //check if it is possible to play at desired position
-int valid_board_move(int move[2], t_board board) {
+int valid_board_move(t_move move, t_board board) {
     //is valid if the spot move[0], move[1] has a value < 3
-    if (board.elements[move[0]][move[1]] < 3)
+    if (board.elements[move.row][move.column] < 3)
         return TRUE;
     return FALSE;
 }
 
 //updates the board with the latest move
-void update_board(int move[2], t_board *board) {
-    board->elements[move[0]][move[1]]++;
+void update_board(t_move move, t_board *board) {
+    board->elements[move.row][move.column]++;
 
 }
 
@@ -70,10 +70,10 @@ int remaining_moves(t_board board) {
 }
 
 //return TRUE if last move caused player to win game, FALSE otherwise
-int won_game(t_board board, int move[2]) {
-    if (check_column(board, move[1]) == TRUE) {
+int won_game(t_board board, t_move move) {
+    if (check_column(board, move.column) == TRUE) {
         return TRUE;
-    } else if (check_row(board, move[0]) == TRUE) {
+    } else if (check_row(board, move.row) == TRUE) {
         return TRUE;
     } else if (check_diagonal(board, move) == TRUE) {
         return TRUE;
@@ -114,11 +114,11 @@ int check_row(t_board board, int row) {
 }
 
 
-int dec_diag(t_board board, int move[2]) {
+int dec_diag(t_board board, t_move move) {
     int i, ind_row, ind_column, value;
     ind_row = 0;
-    if (move[1] - move[0] >= 0) {
-        ind_column = move[1] - move[0];
+    if (move.column - move.row >= 0) {
+        ind_column = move.column - move.row;
         value = board.elements[ind_row][ind_column];
         for (i = 1; i < 3; i++) {
             if (board.elements[ind_row + i][ind_column + i] != value)
@@ -129,11 +129,11 @@ int dec_diag(t_board board, int move[2]) {
     return FALSE;
 }
 
-int inc_diag(t_board board, int move[2]) {
+int inc_diag(t_board board, t_move move) {
     int i, ind_row, ind_column, value;
     ind_row = 0;
-    if (move[1] - move[0] >= 2 && move[1] - move[0] <= 3) {
-        ind_column = move[1] - move[0];
+    if (move.column - move.row >= 2 && move.column - move.row <= 3) {
+        ind_column = move.column + move.row;
         value = board.elements[ind_row][ind_column];
         for (i = 1; i < 3; i++) {
             if (board.elements[ind_row + i][ind_column - i] != value)
@@ -146,7 +146,7 @@ int inc_diag(t_board board, int move[2]) {
 
 
 //check if user won in diagonal, return TRUE if yes, otherwise FALSE
-int check_diagonal(t_board board, int move[2]) {
+int check_diagonal(t_board board, t_move move) {
     if (dec_diag(board, move) == TRUE)
         return TRUE;
     else if (inc_diag(board, move) == TRUE)

@@ -5,8 +5,9 @@ set(CMAKE_C_STANDARD 99)
 
 set(SOURCE_FILES
         src/board.c
-        src/main.c
-        src/input.c)
+        src/input.c
+        src/manager.c
+        src/main.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 

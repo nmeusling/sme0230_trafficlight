@@ -1,7 +1,7 @@
 /* Natalie Menato
    Numero USP: 10295051
-   07/05/2017
-   Submissao para Trabalho Parte 2  */
+   27/05/2017
+   Submissao para Trabalho Parte 3  */
 
 #include "input.h"
 
@@ -21,24 +21,32 @@ int is_column_valid(int col) {
 }
 
 //Validate if input row and column numbers are both valid
-int validate_input(int move[2]) {
+//return TRUE if valid and valid board move
+//return 0 if invalid format
+//return -1 if invalid board move
+int validate_input(t_move *move, t_board board) {
     index_move(move);
-    if ((is_row_valid(move[0]) == TRUE) && (is_column_valid(move[1]) == TRUE))
-        return TRUE;
-    return FALSE;
+    if ((is_row_valid(move->row) == TRUE) &&
+        (is_column_valid(move->column) == TRUE)) {
+        if (valid_board_move(*move, board) == TRUE) {
+            return TRUE;
+        }
+        return -1;
+    }
+    return 0;
 }
 
 //change move from ascii code to index of desired row and column
-void index_move(int move[2]) {
+void index_move(t_move *move) {
     // Using ASCII code, '1' - 49, '2' - 50, '3' - 51
     // '1' will become 0, '2' will become 1, '3' will become 2
-    move[0] -= 49;
+    move->row = move->row - 49;
     // Using ASCII code 'a' - 'd' = 97-100, 'A' - 'D' = 65-68
     // 'A' or 'a' will become 0. 'D' or 'd' will become 3.
-    if (move[1] >= 97)
-        move[1] -= 97;
+    if (move->column >= 97)
+        move->column = move->column - 97;
     else
-        move[1] -= 65;
+        move->column = move->column - 65;
 }
 
 //Flushes any extra chars input by user
@@ -51,52 +59,44 @@ void flush_std_in(void) {
 //Get player's desired move
 //returns 0 if all is successful
 //returns -1 if user wants to quit
-int get_move(int move[2], t_board board, int player) {
+int get_move(t_move *move, t_board board, int player) {
     //store int related to char based on ASCII
     int row, column;
-    int is_valid = FALSE;
-    int is_valid_input;
-    int is_valid_move;
+    int is_valid;
 
     printf("Player %d - Please enter your move: ", player);
     row = getchar();
-    if (row == 81 || row == 113) {
+    if (row == (int) 'q' || row == (int) 'Q') {
         return -1;
     }
     column = getchar();
     flush_std_in();
 
-    move[0] = row;
-    move[1] = column;
-
-    is_valid_input = validate_input(move);
-    if (is_valid_input == TRUE)
-        if (valid_board_move(move, board) == TRUE)
-            is_valid = TRUE;
-
-    while (is_valid == FALSE) {
-        if (is_valid_input == FALSE) {
+    move->row = row;
+    move->column = column;
+    //Validate if input row and column numbers are both valid
+    //return TRUE if valid and valid board move
+    //return 0 if invalid format
+    //return -1 if invalid board move
+    is_valid = validate_input(move, board);
+    while (is_valid != TRUE) {
+        if (is_valid == 0) {
             printf("Not a valid input format. Try again: ");
         } else {
-            is_valid_move = valid_board_move(move, board);
-            if (is_valid_move == FALSE)
-                printf("That is not a legal move! Try again: ");
+            printf("That is not a legal move! Try again: ");
         }
         //read the first two input chars
         row = getchar();
-        if (row == 81 || row == 113) {
+        if (row == (int) 'q' || row == (int) 'Q') {
             return -1;
         }
         column = getchar();
         //Discard any chars input after the first two
         flush_std_in();
 
-        move[0] = row;
-        move[1] = column;
-        is_valid_input = validate_input(move);
-        if (is_valid_input == TRUE)
-            if (valid_board_move(move, board) == TRUE)
-                is_valid = TRUE;
+        move->row = row;
+        move->column = column;
+        is_valid = validate_input(move, board);
     }
     return 0;
 
