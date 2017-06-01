@@ -9,13 +9,17 @@ int main() {
 
     //declare t_board struct current_board to store current state of game board
     t_board main_board;
-    if (begin_game(&main_board) == FALSE)
-        return FALSE;
+    srand((unsigned int) time(NULL));
+
+    begin_game(&main_board);
+    //select correct game type: PvC or PvP
     int game_type = get_game_type();
+    if (game_type == 0)
+        return 0;
     if (game_type == 1)
-        pvp_play(&main_board);
-    if (game_type == 2)
         pvc_play(&main_board);
+    if (game_type == 2)
+        pvp_play(&main_board);
     return 0;
 }
 

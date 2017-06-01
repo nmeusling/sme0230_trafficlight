@@ -7,10 +7,8 @@
 #include "manager.h"
 #include "input.h"
 
-//function to print the game opening with basic instructions for play.
-//returns FALSE if the user does not want to start a game, TRUE otherwise
 void print_menu() {
-
+// Prints the game opening with basic instructions for play.
     printf(
             "\n--------------------------------------" \
              "\nWelcome to the Traffic Light Game." \
@@ -22,34 +20,27 @@ void print_menu() {
              "\nIf a space contains a '#', no further moves are possible."\
              " \n\nEnter your moves based on desired row and then column."\
              "\nFor example: '3B'. "\
-             "\n\nEnter 'Q' to quit at any point.\n\n"\
-             "Would you like to start a game? Y/N: ");
+             "\n\nEnter 'Q' to quit at any point.\n\n");
 
     return;
 }
 
-int begin_game(t_board *board) {
-    int start_game;
-
+void begin_game(t_board *board) {
+// Clears the board and prints the opening menu.
     clear_board(board);
-
     print_menu();
-
-    start_game = getchar();
-    flush_std_in();
-    //check input using ASCII, if input is not 'Y' or 'y'
-    if (start_game != (int) 'Y' && start_game != (int) 'y') {
-        return FALSE;
-    }
-    return TRUE;
 }
 
 int get_game_type() {
+// Asks user for play mode (PvP or PvC)
+// Returns 1 for PvC, 2 for PvP, 0 to quit program
     int game_type;
-    printf("\nEnter '1' for player vs player mode or '2' for player vs computer mode: ");
+    printf("\nEnter '1' for player vs computer mode or '2' for player vs player mode: ");
     game_type = getchar();
     flush_std_in();
     while (game_type != (int) '1' && game_type != (int) '2') {
+        if (game_type == (int) 'q' || game_type == (int) 'Q')
+            return 0;
         printf("Invalid selection. Try again: ");
         game_type = getchar();
         flush_std_in();
@@ -60,21 +51,23 @@ int get_game_type() {
 }
 
 int pvp_play(t_board *board) {
-    //keep track of which player's turn it is
+// Controls PvP play until a player wins or quits
+    // controls which player is currently playing
     int current_player = 1;
 
-    //stores player's desired move
+    // stores the next desired move
     t_move move = {-1, -1};
 
     print_board(*board);
 
-    while (remaining_moves(*board) == TRUE) {
-        //get_move returns -1 if the user wants to stop playing
-        if (get_move(&move, *board, current_player) < 0) {
+    int continue_playing = TRUE;
+    while (continue_playing == TRUE) {
+        //get_move returns FALSE if the user chooses to quit with q or Q
+        continue_playing = get_move(&move, *board, current_player);
+        if (continue_playing == FALSE) {
             return FALSE;
         }
 
-        //input is valid, board is updated to include move
         update_board(move, board);
         print_board(*board);
         if (won_game(*board, move) == TRUE) {
@@ -82,36 +75,31 @@ int pvp_play(t_board *board) {
                    current_player);
             return 0;
         }
-        if (current_player == 1)
-            current_player = 2;
-        else
-            current_player = 1;
 
+        current_player = switch_player(current_player);
     }
-    printf("\n\nGame Over: No more possible moves!\n\n");
     return FALSE;
 }
 
 int pvc_play(t_board *board) {
-    srand(time(NULL));
-    //keep track of which player's turn it is
+// Controls PvC play until a player wins or quits
+
     //player 1 is the computer, player 2 is human player
     int current_player = 1;
 
     //stores player's desired move
     t_move move = {-1, -1};
 
-    //print_board(*board);
-
-    while (remaining_moves(*board) == TRUE) {
-        //human player
+    int continue_playing = TRUE;
+    while (continue_playing == TRUE) {
+        //it is the human player's turn
         if (current_player == 2) {
-            //get_move returns -1 if the user wants to stop playing
-            if (get_move(&move, *board, current_player) < 0) {
+            //get_move returns FALSE if the user wants to stop playing
+            continue_playing = get_move(&move, *board, current_player);
+            if (continue_playing == FALSE) {
                 return FALSE;
             }
 
-            //input is valid, board is updated to include move
             update_board(move, board);
             print_board(*board);
             if (won_game(*board, move) == TRUE) {
@@ -120,25 +108,50 @@ int pvc_play(t_board *board) {
                 return 0;
             }
         } else {
-            move.row = rand() % 3;
-            move.column = rand() % 4;
-            while (valid_board_move(move, *board) == FALSE) {
-                move.row = rand() % 3;
-                move.column = rand() % 4;
-            }
+            // it is the computer's turn
+            random_move(&move, *board);
             update_board(move, board);
+            printf("\n\nThe Computer's Move: %d%c\n", move.row + 1,
+                   column_letter(move.column));
             print_board(*board);
             if (won_game(*board, move) == TRUE) {
                 printf("\nThe computer won. Try again next time.\n");
-                return 0;
+                return FALSE;
             }
         }
-        if (current_player == 1)
-            current_player = 2;
-        else
-            current_player = 1;
-
+        current_player = switch_player(current_player);
     }
-    printf("\n\nGame Over: No more possible moves!\n\n");
+
     return FALSE;
+}
+
+
+int switch_player(int current_player) {
+// Switches which player's turn it is
+    if (current_player == 1)
+        return 2;
+    else
+        return 1;
+}
+
+void random_move(t_move *move, t_board board) {
+// Saves a valid, random move to move
+    move->row = rand() % 3;
+    move->column = rand() % 4;
+    while (valid_board_move(*move, board) == FALSE) {
+        move->row = rand() % 3;
+        move->column = rand() % 4;
+    }
+    return;
+}
+
+char column_letter(int column) {
+// returns column letter based on column index
+    if (column == 0)
+        return 'A';
+    if (column == 1)
+        return 'B';
+    if (column == 2)
+        return 'C';
+    return 'D';
 }
