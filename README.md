@@ -37,3 +37,9 @@ entered. Player can quit game by entering 'Q' instead of entering a move.
 Execution will end automatically when there are no more valid moves left (i.e  
 when the board has been filled with '#').
 
+### Part 3
+
+Validation is now completed to check if the last move won the game. This check 
+is done for row, column, and diagonal. In addition, this part includes the option
+to select a Player vs Player or Player vs Computer game mode. The Computer play 
+is random.
