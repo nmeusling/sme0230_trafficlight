@@ -7,8 +7,6 @@
 #define INPUT_H
 
 #include "board.h"
-#include "main.h"
-#include <stdio.h>
 
 
 int is_row_valid(int);

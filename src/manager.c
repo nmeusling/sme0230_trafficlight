@@ -3,7 +3,6 @@
    27/05/2017
    Submissao para Trabalho Parte 3  */
 
-#include <stdio.h>
 #include "manager.h"
 #include "input.h"
 
@@ -90,6 +89,10 @@ int pvc_play(t_board *board) {
     //stores player's desired move
     t_move move = {-1, -1};
 
+    t_possible_moves *poss_moves = (t_possible_moves *) malloc(
+            sizeof(t_possible_moves));
+    poss_moves->num_moves = 0;
+
     int continue_playing = TRUE;
     while (continue_playing == TRUE) {
         //it is the human player's turn
@@ -109,7 +112,9 @@ int pvc_play(t_board *board) {
             }
         } else {
             // it is the computer's turn
-            random_move(&move, *board);
+//            random_move(&move, *board);
+            computer_move(&move, *board, poss_moves);
+//            poss_moves = possible_moves(*board, poss_moves);
             update_board(move, board);
             printf("\n\nThe Computer's Move: %d%c\n", move.row + 1,
                    column_letter(move.column));
@@ -134,16 +139,16 @@ int switch_player(int current_player) {
         return 1;
 }
 
-void random_move(t_move *move, t_board board) {
-// Saves a valid, random move to move
-    move->row = rand() % 3;
-    move->column = rand() % 4;
-    while (valid_board_move(*move, board) == FALSE) {
-        move->row = rand() % 3;
-        move->column = rand() % 4;
-    }
-    return;
-}
+//void random_move(t_move *move, t_board board) {
+//// Saves a valid, random move to move
+//    move->row = rand() % 3;
+//    move->column = rand() % 4;
+//    while (valid_board_move(*move, board) == FALSE) {
+//        move->row = rand() % 3;
+//        move->column = rand() % 4;
+//    }
+//    return;
+//}
 
 char column_letter(int column) {
 // returns column letter based on column index
@@ -155,3 +160,4 @@ char column_letter(int column) {
         return 'C';
     return 'D';
 }
+

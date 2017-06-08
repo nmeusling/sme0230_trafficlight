@@ -43,3 +43,8 @@ Validation is now completed to check if the last move won the game. This check
 is done for row, column, and diagonal. In addition, this part includes the option
 to select a Player vs Player or Player vs Computer game mode. The Computer play 
 is random.
+
+### Part 4
+
+The computer mode has been improved so that the computer now follows a strategy 
+to win instead of simply playing a random move.

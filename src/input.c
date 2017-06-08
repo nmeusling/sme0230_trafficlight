@@ -5,7 +5,6 @@
 
 #include "input.h"
 
-
 int is_row_valid(int row) {
 //Return 1 if the int passed corresponds to a valid row, else return 0
     if (row >= 0 && row < ROW_SIZE) {

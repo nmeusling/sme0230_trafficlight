@@ -3,7 +3,7 @@
    31/05/2017
    Submissao para Trabalho Parte 3  */
 
-#include "main.h"
+#include "board.h"
 
 void print_board(t_board board) {
 // Prints the board that was passed to the function to the screen.
@@ -56,6 +56,10 @@ void update_board(t_move move, t_board *board) {
 
 }
 
+void undo_move(t_move move, t_board *board) {
+    board->elements[move.row][move.column]--;
+}
+
 
 int won_game(t_board board, t_move move) {
 //return TRUE if last move caused player to win game, FALSE otherwise
@@ -75,6 +79,8 @@ int check_column(t_board board, int col) {
 //check if a user has won in a column, return TRUE if yes, otherwise FALSE
     int i;
     int piece = board.elements[0][col];
+    if (piece == 0)
+        return 0;
     for (i = 1; i < ROW_SIZE; i++) {
         if (board.elements[i][col] != piece) {
             return FALSE;
@@ -86,7 +92,6 @@ int check_column(t_board board, int col) {
 
 int check_row(t_board board, int row) {
 //check if a user has won in a row, return TRUE if yes, otherwise FALSE
-
     //in order to win by a row, the two middle columns must be equal
     if (board.elements[row][1] != board.elements[row][2]) {
         return FALSE;
@@ -112,6 +117,8 @@ int dec_diag(t_board board, t_move move) {
         //change to the column associated with the first row of the diagonal
         ind_column = move.column - move.row;
         value = board.elements[ind_row][ind_column];
+        if (value == 0)
+            return FALSE;
         //check all row and column pairs of the diagonal
         for (i = 1; i < 3; i++) {
             if (board.elements[ind_row + i][ind_column + i] != value)
@@ -131,6 +138,8 @@ int inc_diag(t_board board, t_move move) {
         //change to the column associated with the first row of the diagonal
         ind_column = move.column + move.row;
         value = board.elements[ind_row][ind_column];
+        if (value == 0)
+            return FALSE;
         //check all row and column pairs of the diagonal
         for (i = 1; i < 3; i++) {
             if (board.elements[ind_row + i][ind_column - i] != value)

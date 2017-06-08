@@ -4,6 +4,7 @@
    Submissao para Trabalho Parte 3  */
 
 #include "main.h"
+#include "manager.h"
 
 int main() {
 

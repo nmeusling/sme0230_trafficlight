@@ -7,18 +7,7 @@
 #define BOARD_H
 
 
-#define ROW_SIZE 3
-#define COLUMN_SIZE 4
-
-//struct to store the game board
-typedef struct {
-    int elements[ROW_SIZE][COLUMN_SIZE];
-} t_board;
-
-//struct to store moves
-typedef struct {
-    int row, column;
-} t_move;
+#include "main.h"
 
 
 void print_board(t_board);
@@ -43,7 +32,6 @@ int check_column(t_board, int);
 int check_row(t_board, int);
 //check if a user has won in a row, return TRUE if yes, otherwise FALSE
 
-
 int check_diagonal(t_board, t_move);
 //check if user won in either diagonal, return TRUE if yes, otherwise FALSE
 
@@ -53,4 +41,5 @@ int dec_diag(t_board, t_move);
 int inc_diag(t_board, t_move);
 //if the increasing diagonal has three in a row return TRUE if yes, else return FALSE
 
+void undo_move(t_move move, t_board *board);
 #endif

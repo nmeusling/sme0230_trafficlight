@@ -1,14 +1,14 @@
 /* Natalie Menato
    Numero USP: 10295051
    27/05/2017
-   Submissao para Trabalho Parte 3  */
+   Submissao para Trabalho Parte 4  */
 
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include "board.h"
-#include <stdlib.h>
-#include <time.h>
+#include "main.h"
+#include "ai.h"
+
 
 void begin_game(t_board *);
 // Clears the board and prints the opening menu.
@@ -29,10 +29,12 @@ int get_game_type();
 int switch_player(int);
 // Switches which player's turn it is
 
-void random_move(t_move *, t_board);
-// Saves a valid, random move to move
+//void random_move(t_move *, t_board);
+//// Saves a valid, random move to move
 
 char column_letter(int);
 // returns column letter based on column index
+
+
 
 #endif //SME0230_TRAFFICLIGHT_MANAGER_H
