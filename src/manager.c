@@ -89,9 +89,9 @@ int pvc_play(t_board *board) {
     //stores player's desired move
     t_move move = {-1, -1};
 
-    t_possible_moves *poss_moves = (t_possible_moves *) malloc(
-            sizeof(t_possible_moves));
-    poss_moves->num_moves = 0;
+//    t_possible_moves *poss_moves = (t_possible_moves *) malloc(
+//            sizeof(t_possible_moves));
+//    poss_moves->num_moves = 0;
 
     int continue_playing = TRUE;
     while (continue_playing == TRUE) {
@@ -113,7 +113,7 @@ int pvc_play(t_board *board) {
         } else {
             // it is the computer's turn
 //            random_move(&move, *board);
-            computer_move(&move, *board, poss_moves);
+            move = computer_move(*board);
 //            poss_moves = possible_moves(*board, poss_moves);
             update_board(move, board);
             printf("\n\nThe Computer's Move: %d%c\n", move.row + 1,

@@ -28,7 +28,7 @@ typedef struct {
 } t_move;
 
 typedef struct {
-    t_move possible_moves[12];
+    t_move possible_moves[ROW_SIZE * COLUMN_SIZE];
     int num_moves;
 
 } t_possible_moves;
