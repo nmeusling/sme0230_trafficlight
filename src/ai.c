@@ -93,41 +93,39 @@ int score_move(t_board board, t_move move) {
 //}
 
 t_move computer_move(t_board board) {
-//    poss_moves = possible_moves(board, poss_moves);
-//    t_possible_moves *best_moves;
-//    int win_move = can_win(board, *poss_moves);
-//    //if computer can win this turn, make move and return 0
-//    if (win_move >= 0) {
-//        move->row = poss_moves->possible_moves[win_move].row;
-//        move->column = poss_moves->possible_moves[win_move].column;
-//        return 0;
-//    }
-//    best_moves = prevent_win(board, *poss_moves);
-//    //no moves where player will not win
-//    if(best_moves->num_moves == 0){
-//        random_move(move, board);
-//        return -1;
-//    }
-//    move->row = best_moves->possible_moves[0].row;
-//    move->column = best_moves->possible_moves[0].column;
-//    return 0;
-
     int i;
     t_move comp_move;
-    t_possible_moves poss_moves;
-    poss_moves = possible_moves(board);
-    int ind_best_score = 0;
-    int best_score = score_move(board,
-                                poss_moves.possible_moves[ind_best_score]);
-    //evaluate each possible computer move
+    t_possible_moves poss_moves = possible_moves(board);
+    //the indexes of all moves with the max score
+    int ind_best_scores[poss_moves.num_moves];
+
+    //int ind_best_score = 0;
+    //max scores starts with score of first possible move
+    int best_score = score_move(board, poss_moves.possible_moves[0]);
+    //start with one move of same score
+    int num_best_scores = 1;
+    //store the index of the best score so far
+    ind_best_scores[0] = 0;
+    //evaluate each possible computer move and determine the highest score, save scores to score array
     for (i = 1; i < poss_moves.num_moves; i++) {
         int score = score_move(board, poss_moves.possible_moves[i]);
+        //if it is higher than precious best score, it is the new best score, and it is the only high score so far
         if (score > best_score) {
-            ind_best_score = i;
             best_score = score;
+            ind_best_scores[0] = i;
+            num_best_scores = 1;
+        }
+            //if it is equal to the best score, add the index to the list and increment number of best scores
+        else if (score == best_score) {
+            ind_best_scores[num_best_scores] = i;
+            num_best_scores++;
         }
     }
-    comp_move = poss_moves.possible_moves[ind_best_score];
+    //pick one of the indexes of the best moves at random
+    int index = rand() % num_best_scores;
+    index = ind_best_scores[index];
+
+    comp_move = poss_moves.possible_moves[index];
     return comp_move;
 }
 
