@@ -35,6 +35,10 @@ int switch_player(int);
 char column_letter(int);
 // returns column letter based on column index
 
+int plays_first();
+
+int first_player();
+
 
 
 #endif //SME0230_TRAFFICLIGHT_MANAGER_H

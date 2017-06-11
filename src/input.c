@@ -65,8 +65,11 @@ int get_move(t_move *move, t_board board, int player) {
     //stores corresponding of row and column chars
     int row, column;
     int is_valid;
-
-    printf("\n\nPlayer %d - Please enter your move: ", player);
+    if (player == 0) {
+        printf("\n\nPlayer - Please enter your move: ");
+    } else {
+        printf("\n\nPlayer %d - Please enter your move: ", player);
+    }
     row = getchar();
     if (row == (int) 'q' || row == (int) 'Q') {
         return FALSE;

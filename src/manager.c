@@ -49,6 +49,25 @@ int get_game_type() {
     return 2;
 }
 
+//ask player if computer, player, or random plays first
+int plays_first() {
+    int first_player = 0;
+    do {
+        printf("\nWho should have the first move?\n"\
+        "1 - Player, 2 - Computer, 3 - Random: ");
+        first_player = getchar();
+        flush_std_in();
+    } while (first_player != (int) '1' && first_player != (int) '2' &&
+             first_player != (int) '3');
+    if (first_player == '1') {
+        return 1;
+    } else if (first_player == '2') {
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
 int pvp_play(t_board *board) {
 // Controls PvP play until a player wins or quits
     // controls which player is currently playing
@@ -80,11 +99,26 @@ int pvp_play(t_board *board) {
     return FALSE;
 }
 
+int first_player() {
+    int option = plays_first();
+    if (option == 1) {
+        return 2;
+    } else if (option == 2) {
+        return 1;
+    } else {
+        return (rand() % 2) + 1;
+    }
+}
+
 int pvc_play(t_board *board) {
 // Controls PvC play until a player wins or quits
 
     //player 1 is the computer, player 2 is human player
-    int current_player = 1;
+
+    int current_player = first_player();
+    if (current_player == 2) {
+        print_board(*board);
+    }
 
     //stores player's desired move
     t_move move = {-1, -1};
@@ -98,7 +132,7 @@ int pvc_play(t_board *board) {
         //it is the human player's turn
         if (current_player == 2) {
             //get_move returns FALSE if the user wants to stop playing
-            continue_playing = get_move(&move, *board, current_player);
+            continue_playing = get_move(&move, *board, 0);
             if (continue_playing == FALSE) {
                 return FALSE;
             }
@@ -106,8 +140,7 @@ int pvc_play(t_board *board) {
             update_board(move, board);
             print_board(*board);
             if (won_game(*board, move) == TRUE) {
-                printf("\nCongratulations Player %d!! You won the game!\n",
-                       current_player);
+                printf("\nCongratulations Player!! You won the game!\n");
                 return 0;
             }
         } else {
