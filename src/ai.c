@@ -133,11 +133,11 @@ t_move computer_move(t_board board) {
 
 void random_move(t_move *move, t_board board) {
 // Saves a valid, random move to move
-    move->row = rand() % 3;
-    move->column = rand() % 4;
+    move->row = rand() % ROW_SIZE;
+    move->column = rand() % COLUMN_SIZE;
     while (valid_board_move(*move, board) == FALSE) {
-        move->row = rand() % 3;
-        move->column = rand() % 4;
+        move->row = rand() % ROW_SIZE;
+        move->column = rand() % COLUMN_SIZE;
     }
     return;
 }

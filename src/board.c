@@ -132,11 +132,11 @@ int dec_diag(t_board board, t_move move) {
 int inc_diag(t_board board, t_move move) {
 //if the increasing diagonal has three in a row return TRUE if yes, else return FALSE
     int i, ind_row, ind_column, value;
-    ind_row = 0;
     //if the difference between the row and column number is not 2 or 3, the diagonal does not have three places
-    if (move.column - move.row >= 2 && move.column - move.row <= 3) {
+    ind_column = move.column + move.row;
+    ind_row = 0;
+    if (ind_column == 2 || ind_column == 3) {
         //change to the column associated with the first row of the diagonal
-        ind_column = move.column + move.row;
         value = board.elements[ind_row][ind_column];
         if (value == 0)
             return FALSE;
