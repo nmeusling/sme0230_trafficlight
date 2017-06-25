@@ -7,7 +7,8 @@ set(SOURCE_FILES
         src/board.c
         src/input.c
         src/manager.c
-        src/main.c)
+        src/main.c
+        src/ai.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
