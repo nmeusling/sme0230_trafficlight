@@ -99,6 +99,7 @@ int pvc_play(t_board *board) {
 
     //player 1 is the computer, player 2 is human player
     int current_player = first_player();
+    int first_play = TRUE;
     //returns false if user wants to quit
     if (current_player == 0)
         return FALSE;
@@ -125,9 +126,15 @@ int pvc_play(t_board *board) {
                 printf("\nCongratulations Player!! You won the game!\n");
                 return 0;
             }
+            first_play = FALSE;
         } else {
             // it is the computer's turn
-            move = computer_move(*board);
+            if (first_play == TRUE) {
+                random_move(&move, *board);
+                first_play == FALSE;
+            } else {
+                move = computer_move(*board);
+            }
             make_move(move, board);
             printf("\n\nThe Computer's Move: %d%c\n", move.row + 1,
                    column_letter(move.column));

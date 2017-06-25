@@ -17,6 +17,9 @@ int main() {
     t_board main_board;
     srand((unsigned int) time(NULL));
 
+    //test score function
+    clear_board(&main_board);
+
     //clears board and prints opening menu
     begin_game(&main_board);
 
@@ -33,5 +36,4 @@ int main() {
         pvp_play(&main_board);
     return 0;
 }
-
 

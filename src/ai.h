@@ -30,11 +30,23 @@ t_possible_moves possible_moves(t_board board);
  *
  * @param board t_board contains the current state of the board
  * @param move t_move that contains the move to be evaluated
- * @return int corresponding to how good a move is for the computer, -1 if other
- * player can win, 1 if computer wins
+ * @return float corresponding to how good a move is for the computer, -1 if other
+ * player can win, 1 if computer wins, -.75 if moving there leaves the computer
+ * with 0 good moves on their next turn, otherwise a value between -0.5 and 0.5,
+ * where the higher the number is, the fewer options for good moves the next
+ * player has.
  */
-int score_move(t_board board, t_move move);
+float score_move(t_board board, t_move move);
 
+/** @brief Finds the number of possible good moves for current player
+ *
+ * Counts how many moves the current player can make that do not allow the next
+ * player to win
+ *
+ * @param board t_board contains the current state of the board
+ * @return int corresponding to the number of good moves available
+ */
+int possible_good_moves(t_board board);
 
 /** @brief Chooses the computer move based on the legal move with highest score
  *
