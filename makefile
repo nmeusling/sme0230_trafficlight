@@ -18,8 +18,8 @@ board.o: $(SRC_DIR)/board.c $(SRC_DIR)/board.h
 manager.o: $(SRC_DIR)/manager.c $(SRC_DIR)/manager.h
 	$(CC) -c $(SRC_DIR)/manager.c $(CFLAGS) -o $(SRC_DIR)/manager.o
 
-manager.o: $(SRC_DIR)/ai.c $(SRC_DIR)/ai.h
-    	$(CC) -c $(SRC_DIR)/ai.c $(CFLAGS) -o $(SRC_DIR)/ai.o
+ai.o: $(SRC_DIR)/ai.c $(SRC_DIR)/ai.h
+	$(CC) -c $(SRC_DIR)/ai.c $(CFLAGS) -o $(SRC_DIR)/ai.o
 
 clean:
 	rm trafficlight $(SRC_DIR)/*.o
